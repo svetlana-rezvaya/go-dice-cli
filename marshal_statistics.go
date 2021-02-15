@@ -1,9 +1,12 @@
 package main
 
-import "strconv"
+import "fmt"
 
 func marshalStatistics(stats statistics) string {
-	return "minimum: " + strconv.Itoa(stats.minimum) + "\n" +
-		"maximum: " + strconv.Itoa(stats.maximum) + "\n" +
-		"sum: " + strconv.Itoa(stats.sum) + "\n"
+	return fmt.Sprintf(
+		"minimum: %d\nmaximum: %d\nsum: %d\n",
+		stats.minimum,
+		stats.maximum,
+		stats.sum,
+	)
 }
