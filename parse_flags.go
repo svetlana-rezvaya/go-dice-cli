@@ -20,5 +20,9 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 		return 0, 0, errors.New("unable to parse the flags: " + err.Error())
 	}
 
+	// 1. as a string in a positional argument
+	// 2. as a string in the 'dice' flag
+	// 3. as numbers in the 'throws' and 'faces' flags
+
 	return throwCount, faceCount, nil
 }
