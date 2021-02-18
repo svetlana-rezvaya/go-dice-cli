@@ -35,12 +35,20 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 	if diceNotation != "" {
 		throwCount, faceCount, err = parseDiceNotation(diceNotation)
 		if err != nil {
-			return 0, 0,
-				errors.New("unable to parse the 'dice' flag: " + err.Error())
+			return 0, 0, errors.New("unable to parse the 'dice' flag: " + err.Error())
 		}
 	}
 
 	// 3. as numbers in the 'throws' and 'faces' flags
+	throwCount = *throwsFlag
+	if throwCount == 0 {
+		return 0, 0, errors.New("the 'throws' flag is required")
+	}
+
+	faceCount = *facesFlag
+	if faceCount == 0 {
+		return 0, 0, errors.New("the 'faces' flag is required")
+	}
 
 	return throwCount, faceCount, nil
 }
