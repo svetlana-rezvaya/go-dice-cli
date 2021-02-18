@@ -31,6 +31,15 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 	}
 
 	// 2. as a string in the 'dice' flag
+	diceNotation = *diceFlag
+	if diceNotation != "" {
+		throwCount, faceCount, err = parseDiceNotation(diceNotation)
+		if err != nil {
+			return 0, 0,
+				errors.New("unable to parse the 'dice' flag: " + err.Error())
+		}
+	}
+
 	// 3. as numbers in the 'throws' and 'faces' flags
 
 	return throwCount, faceCount, nil
