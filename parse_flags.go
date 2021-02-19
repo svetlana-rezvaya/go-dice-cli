@@ -28,6 +28,8 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 			return 0, 0,
 				errors.New("unable to parse the positional argument: " + err.Error())
 		}
+
+		return throwCount, faceCount, nil
 	}
 
 	// 2. as a string in the 'dice' flag
@@ -37,6 +39,8 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 		if err != nil {
 			return 0, 0, errors.New("unable to parse the 'dice' flag: " + err.Error())
 		}
+
+		return throwCount, faceCount, nil
 	}
 
 	// 3. as numbers in the 'throws' and 'faces' flags
