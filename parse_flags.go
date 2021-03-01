@@ -3,10 +3,13 @@ package main
 import (
 	"errors"
 	"flag"
+	"io/ioutil"
 )
 
 func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 	flags := flag.NewFlagSet("go-dice-cli", flag.ContinueOnError)
+	flags.SetOutput(ioutil.Discard)
+
 	diceFlag := flags.String("dice", "",
 		"number of throws and dice faces in the dice notation; "+
 			"this flag can be used as a positional argument")
