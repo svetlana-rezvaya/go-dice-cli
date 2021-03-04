@@ -20,6 +20,12 @@ func Test_toUnicodeDices(test *testing.T) {
 		data{value: 7, wantedResult: "⚅⚀"},
 		data{value: 8, wantedResult: "⚅⚁"},
 		data{value: 9, wantedResult: "⚅⚂"},
+		data{value: 10, wantedResult: "⚄⚄"},
+		data{value: 12, wantedResult: "⚄⚄ ⚁"},
+		data{value: 18, wantedResult: "⚄⚄ ⚅⚁"},
+		data{value: 20, wantedResult: "⚄⚄ ⚄⚄"},
+		data{value: 22, wantedResult: "⚄⚄ ⚄⚄ ⚁"},
+		data{value: 28, wantedResult: "⚄⚄ ⚄⚄ ⚅⚁"},
 	}
 	for _, testData := range tests {
 		result := toUnicodeDices(testData.value)
