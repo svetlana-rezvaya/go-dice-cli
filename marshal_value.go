@@ -1,6 +1,17 @@
 package main
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
+
+func marshalValue(value int, useUnicode bool) string {
+	if useUnicode {
+		return toUnicodeDices(value)
+	}
+
+	return strconv.Itoa(value)
+}
 
 func toUnicodeDices(value int) string {
 	if value == 0 {

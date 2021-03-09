@@ -4,6 +4,27 @@ import (
 	"testing"
 )
 
+func Test_marshalValue(test *testing.T) {
+	type data struct {
+		value        int
+		useUnicode   bool
+		wantedResult string
+	}
+
+	tests := []data{
+		data{value: 28, useUnicode: false, wantedResult: "28"},
+		data{value: 28, useUnicode: true, wantedResult: "⚄⚄ ⚄⚄ ⚅⚁"},
+	}
+	for _, testData := range tests {
+		result := marshalValue(testData.value, testData.useUnicode)
+
+		if result != testData.wantedResult {
+			test.Logf("failed: %d %t", testData.value, testData.useUnicode)
+			test.Fail()
+		}
+	}
+}
+
 func Test_toUnicodeDices(test *testing.T) {
 	type data struct {
 		value        int
