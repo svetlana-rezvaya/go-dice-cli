@@ -2,11 +2,11 @@ package main
 
 import "fmt"
 
-func marshalStatistics(stats statistics) string {
+func marshalStatistics(stats statistics, useUnicode bool) string {
 	return fmt.Sprintf(
-		"minimum: %d\nmaximum: %d\nsum: %d\n",
-		stats.minimum,
-		stats.maximum,
-		stats.sum,
+		"minimum: %s\nmaximum: %s\nsum: %s\n",
+		marshalValue(stats.minimum, useUnicode),
+		marshalValue(stats.maximum, useUnicode),
+		marshalValue(stats.sum, useUnicode),
 	)
 }
