@@ -6,13 +6,10 @@ import (
 )
 
 func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"2d20"})
+	receivedOptions, err := parseFlags([]string{"2d20"})
 
-	if throwCount != 2 {
-		test.Fail()
-	}
-
-	if faceCount != 20 {
+	wantedOptions := options{throwCount: 2, faceCount: 20}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -22,13 +19,10 @@ func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithPositionalArgument(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"#d20"})
+	receivedOptions, err := parseFlags([]string{"#d20"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -41,13 +35,10 @@ func Test_parseFlags_errorWithPositionalArgument(test *testing.T) {
 }
 
 func Test_parseFlags_successWithDiceFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-dice", "2d20"})
+	receivedOptions, err := parseFlags([]string{"-dice", "2d20"})
 
-	if throwCount != 2 {
-		test.Fail()
-	}
-
-	if faceCount != 20 {
+	wantedOptions := options{throwCount: 2, faceCount: 20}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -57,13 +48,10 @@ func Test_parseFlags_successWithDiceFlag(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithDiceFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-dice", "#d20"})
+	receivedOptions, err := parseFlags([]string{"-dice", "#d20"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -76,14 +64,10 @@ func Test_parseFlags_errorWithDiceFlag(test *testing.T) {
 }
 
 func Test_parseFlags_successWithThrowsAndFacesFlags(test *testing.T) {
-	throwCount, faceCount, err :=
-		parseFlags([]string{"-throws", "2", "-faces", "20"})
+	receivedOptions, err := parseFlags([]string{"-throws", "2", "-faces", "20"})
 
-	if throwCount != 2 {
-		test.Fail()
-	}
-
-	if faceCount != 20 {
+	wantedOptions := options{throwCount: 2, faceCount: 20}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -93,13 +77,10 @@ func Test_parseFlags_successWithThrowsAndFacesFlags(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithoutThrowsFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-faces", "20"})
+	receivedOptions, err := parseFlags([]string{"-faces", "20"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -109,13 +90,10 @@ func Test_parseFlags_errorWithoutThrowsFlag(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithoutFacesFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-throws", "2"})
+	receivedOptions, err := parseFlags([]string{"-throws", "2"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -125,13 +103,10 @@ func Test_parseFlags_errorWithoutFacesFlag(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithIncorrectFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-incorrect"})
+	receivedOptions, err := parseFlags([]string{"-incorrect"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 
@@ -143,13 +118,10 @@ func Test_parseFlags_errorWithIncorrectFlag(test *testing.T) {
 }
 
 func Test_parseFlags_errorWithHelpFlag(test *testing.T) {
-	throwCount, faceCount, err := parseFlags([]string{"-help"})
+	receivedOptions, err := parseFlags([]string{"-help"})
 
-	if throwCount != 0 {
-		test.Fail()
-	}
-
-	if faceCount != 0 {
+	wantedOptions := options{throwCount: 0, faceCount: 0}
+	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
 

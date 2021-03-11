@@ -6,7 +6,12 @@ import (
 	"io/ioutil"
 )
 
-func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
+type options struct {
+	throwCount int
+	faceCount  int
+}
+
+func parseFlags(arguments []string) (options, error) {
 	flags := flag.NewFlagSet("go-dice-cli", flag.ContinueOnError)
 	flags.SetOutput(ioutil.Discard)
 
@@ -15,47 +20,50 @@ func parseFlags(arguments []string) (throwCount int, faceCount int, err error) {
 			"this flag can be used as a positional argument")
 	throwsFlag := flags.Int("throws", 0, "number of throws")
 	facesFlag := flags.Int("faces", 0, "number of dice faces")
-	err = flags.Parse(arguments)
+	err := flags.Parse(arguments)
 	if err != nil {
 		if err == flag.ErrHelp {
-			return 0, 0, err
+			return options{}, err
 		}
-		return 0, 0, errors.New("unable to parse the flags: " + err.Error())
+		return options{}, errors.New("unable to parse the flags: " + err.Error())
 	}
 
 	// 1. as a string in a positional argument
 	diceNotation := flags.Arg(0)
 	if diceNotation != "" {
-		throwCount, faceCount, err = parseDiceNotation(diceNotation)
+		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return 0, 0,
+			return options{},
 				errors.New("unable to parse the positional argument: " + err.Error())
 		}
 
-		return throwCount, faceCount, nil
+		options := options{throwCount: throwCount, faceCount: faceCount}
+		return options, nil
 	}
 
 	// 2. as a string in the 'dice' flag
 	diceNotation = *diceFlag
 	if diceNotation != "" {
-		throwCount, faceCount, err = parseDiceNotation(diceNotation)
+		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return 0, 0, errors.New("unable to parse the 'dice' flag: " + err.Error())
+			return options{}, errors.New("unable to parse the 'dice' flag: " + err.Error())
 		}
 
-		return throwCount, faceCount, nil
+		options := options{throwCount: throwCount, faceCount: faceCount}
+		return options, nil
 	}
 
 	// 3. as numbers in the 'throws' and 'faces' flags
-	throwCount = *throwsFlag
+	throwCount := *throwsFlag
 	if throwCount == 0 {
-		return 0, 0, errors.New("the 'throws' flag is required")
+		return options{}, errors.New("the 'throws' flag is required")
 	}
 
-	faceCount = *facesFlag
+	faceCount := *facesFlag
 	if faceCount == 0 {
-		return 0, 0, errors.New("the 'faces' flag is required")
+		return options{}, errors.New("the 'faces' flag is required")
 	}
 
-	return throwCount, faceCount, nil
+	options := options{throwCount: throwCount, faceCount: faceCount}
+	return options, nil
 }
