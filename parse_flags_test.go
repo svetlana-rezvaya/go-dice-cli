@@ -8,7 +8,20 @@ import (
 func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
 	receivedOptions, err := parseFlags([]string{"2d20"})
 
-	wantedOptions := options{throwCount: 2, faceCount: 20}
+	wantedOptions := options{throwCount: 2, faceCount: 20, useUnicode: false}
+	if receivedOptions != wantedOptions {
+		test.Fail()
+	}
+
+	if err != nil {
+		test.Fail()
+	}
+}
+
+func Test_parseFlags_successWithPositionalArgumentAndUnicode(test *testing.T) {
+	receivedOptions, err := parseFlags([]string{"-unicode", "2d20"})
+
+	wantedOptions := options{throwCount: 2, faceCount: 20, useUnicode: true}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -21,7 +34,7 @@ func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
 func Test_parseFlags_errorWithPositionalArgument(test *testing.T) {
 	receivedOptions, err := parseFlags([]string{"#d20"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := options{throwCount: 0, faceCount: 0, useUnicode: false}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}

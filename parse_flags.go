@@ -9,6 +9,7 @@ import (
 type options struct {
 	throwCount int
 	faceCount  int
+	useUnicode bool
 }
 
 func parseFlags(arguments []string) (options, error) {
@@ -20,6 +21,7 @@ func parseFlags(arguments []string) (options, error) {
 			"this flag can be used as a positional argument")
 	throwsFlag := flags.Int("throws", 0, "number of throws")
 	facesFlag := flags.Int("faces", 0, "number of dice faces")
+	unicodeFlag := flags.Bool("unicode", false, "use Unicode to show dice")
 	err := flags.Parse(arguments)
 	if err != nil {
 		if err == flag.ErrHelp {
@@ -37,7 +39,11 @@ func parseFlags(arguments []string) (options, error) {
 				errors.New("unable to parse the positional argument: " + err.Error())
 		}
 
-		options := options{throwCount: throwCount, faceCount: faceCount}
+		options := options{
+			throwCount: throwCount,
+			faceCount:  faceCount,
+			useUnicode: *unicodeFlag,
+		}
 		return options, nil
 	}
 
@@ -49,7 +55,11 @@ func parseFlags(arguments []string) (options, error) {
 			return options{}, errors.New("unable to parse the 'dice' flag: " + err.Error())
 		}
 
-		options := options{throwCount: throwCount, faceCount: faceCount}
+		options := options{
+			throwCount: throwCount,
+			faceCount:  faceCount,
+			useUnicode: *unicodeFlag,
+		}
 		return options, nil
 	}
 
@@ -64,6 +74,10 @@ func parseFlags(arguments []string) (options, error) {
 		return options{}, errors.New("the 'faces' flag is required")
 	}
 
-	options := options{throwCount: throwCount, faceCount: faceCount}
+	options := options{
+		throwCount: throwCount,
+		faceCount:  faceCount,
+		useUnicode: *unicodeFlag,
+	}
 	return options, nil
 }
