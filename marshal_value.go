@@ -18,7 +18,7 @@ func toUnicodeDices(value int) string {
 		return ""
 	}
 	if value <= 6 {
-		return string('\u2680' + value - 1)
+		return string(rune('\u2680' + value - 1))
 	}
 	if value < 10 {
 		return "\u2685" + toUnicodeDices(value-6)
