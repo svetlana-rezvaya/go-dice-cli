@@ -16,12 +16,10 @@ func parseFlags(arguments []string) (options, error) {
 	flags := flag.NewFlagSet("go-dice-cli", flag.ContinueOnError)
 	flags.SetOutput(ioutil.Discard)
 
-	diceFlag := flags.String("dice", "",
-		"number of throws and dice faces in the dice notation; "+
-			"this flag can be used as a positional argument")
-	throwsFlag := flags.Int("throws", 0, "number of throws")
-	facesFlag := flags.Int("faces", 0, "number of dice faces")
-	unicodeFlag := flags.Bool("unicode", false, "use Unicode to show dice")
+	diceFlag := flags.String("dice", "", "")
+	throwsFlag := flags.Int("throws", 0, "")
+	facesFlag := flags.Int("faces", 0, "")
+	unicodeFlag := flags.Bool("unicode", false, "")
 	err := flags.Parse(arguments)
 	if err != nil {
 		if err == flag.ErrHelp {
@@ -52,7 +50,8 @@ func parseFlags(arguments []string) (options, error) {
 	if diceNotation != "" {
 		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return options{}, errors.New("unable to parse the 'dice' flag: " + err.Error())
+			return options{},
+				errors.New("unable to parse the 'dice' flag: " + err.Error())
 		}
 
 		options := options{
