@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -18,13 +19,13 @@ func parseDiceNotation(text string) (throwCount int, faceCount int, err error) {
 	} else {
 		throwCount, err = strconv.Atoi(parts[0])
 		if err != nil {
-			return 0, 0, errors.New("unable to parse the throw count: " + err.Error())
+			return 0, 0, fmt.Errorf("unable to parse the throw count: %s", err)
 		}
 	}
 
 	faceCount, err = strconv.Atoi(parts[1])
 	if err != nil {
-		return 0, 0, errors.New("unable to parse the face count: " + err.Error())
+		return 0, 0, fmt.Errorf("unable to parse the face count: %s", err)
 	}
 
 	return throwCount, faceCount, nil

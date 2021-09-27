@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"io/ioutil"
 )
 
@@ -25,7 +26,7 @@ func parseFlags(arguments []string) (options, error) {
 		if err == flag.ErrHelp {
 			return options{}, err
 		}
-		return options{}, errors.New("unable to parse the flags: " + err.Error())
+		return options{}, fmt.Errorf("unable to parse the flags: %s", err)
 	}
 
 	// 1. as a string in a positional argument
@@ -34,7 +35,7 @@ func parseFlags(arguments []string) (options, error) {
 		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
 			return options{},
-				errors.New("unable to parse the positional argument: " + err.Error())
+				fmt.Errorf("unable to parse the positional argument: %s", err)
 		}
 
 		options := options{
@@ -50,8 +51,7 @@ func parseFlags(arguments []string) (options, error) {
 	if diceNotation != "" {
 		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return options{},
-				errors.New("unable to parse the 'dice' flag: " + err.Error())
+			return options{}, fmt.Errorf("unable to parse the 'dice' flag: %s", err)
 		}
 
 		options := options{
