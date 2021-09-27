@@ -22,7 +22,7 @@ func main() {
 	}
 
 	diceThrows := generateDiceThrows(options.throwCount, options.faceCount)
-	fmt.Println(marshalValues(diceThrows, options.useUnicode))
+	fmt.Println(MarshalValues(diceThrows, options.useUnicode))
 
 	stats := collectStatistics(diceThrows)
 	fmt.Print(marshalStatistics(stats, options.useUnicode))
