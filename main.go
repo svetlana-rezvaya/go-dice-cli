@@ -24,6 +24,6 @@ func main() {
 	diceThrows := generateDiceThrows(options.throwCount, options.faceCount)
 	fmt.Println(MarshalValues(diceThrows, options.useUnicode))
 
-	stats := collectStatistics(diceThrows)
+	stats := CollectStatistics(diceThrows)
 	fmt.Print(marshalStatistics(stats, options.useUnicode))
 }
