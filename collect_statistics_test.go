@@ -1,11 +1,11 @@
-package main
+package dice
 
 import "testing"
 
 func TestCollectStatistics(test *testing.T) {
 	stats := CollectStatistics([]int{9, 7, 8})
 
-	wantedStats := statistics{minimum: 7, maximum: 9, sum: 24}
+	wantedStats := Statistics{Minimum: 7, Maximum: 9, Sum: 24}
 	if stats != wantedStats {
 		test.Fail()
 	}

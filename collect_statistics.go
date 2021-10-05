@@ -1,11 +1,11 @@
-package main
+package dice
 
 // CollectStatistics ...
-func CollectStatistics(values []int) statistics {
+func CollectStatistics(values []int) Statistics {
 	minimum := getMinimumValue(values)
 	maximum := getMaximumValue(values)
 	sum := getSumOfValues(values)
-	return statistics{minimum: minimum, maximum: maximum, sum: sum}
+	return Statistics{Minimum: minimum, Maximum: maximum, Sum: sum}
 }
 
 func getMinimumValue(values []int) int {

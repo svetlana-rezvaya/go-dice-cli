@@ -1,19 +1,19 @@
-package main
+package dice
 
 import "testing"
 
-func Test_marshalStatistics_withoutUnicode(test *testing.T) {
-	stats := statistics{minimum: 7, maximum: 9, sum: 24}
-	result := marshalStatistics(stats, false)
+func TestMarshalStatistics_withoutUnicode(test *testing.T) {
+	stats := Statistics{Minimum: 7, Maximum: 9, Sum: 24}
+	result := MarshalStatistics(stats, false)
 
 	if result != "minimum: 7\nmaximum: 9\nsum: 24\n" {
 		test.Fail()
 	}
 }
 
-func Test_marshalStatistics_withUnicode(test *testing.T) {
-	stats := statistics{minimum: 7, maximum: 9, sum: 24}
-	result := marshalStatistics(stats, true)
+func TestMarshalStatistics_withUnicode(test *testing.T) {
+	stats := Statistics{Minimum: 7, Maximum: 9, Sum: 24}
+	result := MarshalStatistics(stats, true)
 
 	if result != "minimum: ⚅⚀\nmaximum: ⚅⚂\nsum: ⚄⚄ ⚄⚄ ⚃\n" {
 		test.Fail()

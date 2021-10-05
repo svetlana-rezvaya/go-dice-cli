@@ -1,14 +1,14 @@
-package main
+package dice
 
 import (
 	"flag"
 	"testing"
 )
 
-func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"2d20"})
+func TestParseFlags_successWithPositionalArgument(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"2d20"})
 
-	wantedOptions := options{throwCount: 2, faceCount: 20, useUnicode: false}
+	wantedOptions := Options{ThrowCount: 2, FaceCount: 20, UseUnicode: false}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -18,10 +18,10 @@ func Test_parseFlags_successWithPositionalArgument(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_successWithPositionalArgumentAndUnicode(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-unicode", "2d20"})
+func TestParseFlags_successWithPositionalArgumentAndUnicode(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-unicode", "2d20"})
 
-	wantedOptions := options{throwCount: 2, faceCount: 20, useUnicode: true}
+	wantedOptions := Options{ThrowCount: 2, FaceCount: 20, UseUnicode: true}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -31,10 +31,10 @@ func Test_parseFlags_successWithPositionalArgumentAndUnicode(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithPositionalArgument(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"#d20"})
+func TestParseFlags_errorWithPositionalArgument(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"#d20"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0, useUnicode: false}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0, UseUnicode: false}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -47,10 +47,10 @@ func Test_parseFlags_errorWithPositionalArgument(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_successWithDiceFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-dice", "2d20"})
+func TestParseFlags_successWithDiceFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-dice", "2d20"})
 
-	wantedOptions := options{throwCount: 2, faceCount: 20}
+	wantedOptions := Options{ThrowCount: 2, FaceCount: 20}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -60,10 +60,10 @@ func Test_parseFlags_successWithDiceFlag(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithDiceFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-dice", "#d20"})
+func TestParseFlags_errorWithDiceFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-dice", "#d20"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -76,10 +76,10 @@ func Test_parseFlags_errorWithDiceFlag(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_successWithThrowsAndFacesFlags(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-throws", "2", "-faces", "20"})
+func TestParseFlags_successWithThrowsAndFacesFlags(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-throws", "2", "-faces", "20"})
 
-	wantedOptions := options{throwCount: 2, faceCount: 20}
+	wantedOptions := Options{ThrowCount: 2, FaceCount: 20}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -89,10 +89,10 @@ func Test_parseFlags_successWithThrowsAndFacesFlags(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithoutThrowsFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-faces", "20"})
+func TestParseFlags_errorWithoutThrowsFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-faces", "20"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -102,10 +102,10 @@ func Test_parseFlags_errorWithoutThrowsFlag(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithoutFacesFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-throws", "2"})
+func TestParseFlags_errorWithoutFacesFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-throws", "2"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -115,10 +115,10 @@ func Test_parseFlags_errorWithoutFacesFlag(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithIncorrectFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-incorrect"})
+func TestParseFlags_errorWithIncorrectFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-incorrect"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}
@@ -130,10 +130,10 @@ func Test_parseFlags_errorWithIncorrectFlag(test *testing.T) {
 	}
 }
 
-func Test_parseFlags_errorWithHelpFlag(test *testing.T) {
-	receivedOptions, err := parseFlags([]string{"-help"})
+func TestParseFlags_errorWithHelpFlag(test *testing.T) {
+	receivedOptions, err := ParseFlags([]string{"-help"})
 
-	wantedOptions := options{throwCount: 0, faceCount: 0}
+	wantedOptions := Options{ThrowCount: 0, FaceCount: 0}
 	if receivedOptions != wantedOptions {
 		test.Fail()
 	}

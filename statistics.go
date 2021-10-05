@@ -1,7 +1,8 @@
-package main
+package dice
 
-type statistics struct {
-	minimum int
-	maximum int
-	sum     int
+// Statistics ...
+type Statistics struct {
+	Minimum int
+	Maximum int
+	Sum     int
 }

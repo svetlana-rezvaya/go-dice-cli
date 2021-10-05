@@ -1,4 +1,4 @@
-package main
+package dice
 
 import (
 	"errors"
@@ -7,7 +7,8 @@ import (
 	"io/ioutil"
 )
 
-const helpMessage = "" +
+// HelpMessage ...
+const HelpMessage = "" +
 	"Usage:\n" +
 	"  go-dice-cli -h | -help | --help\n" +
 	"  go-dice-cli [-unicode] <dice>\n" +
@@ -24,13 +25,15 @@ const helpMessage = "" +
 	"Arguments:\n" +
 	"  <dice>  — number of throws and dice faces in the dice notation.\n"
 
-type options struct {
-	throwCount int
-	faceCount  int
-	useUnicode bool
+// Options ...
+type Options struct {
+	ThrowCount int
+	FaceCount  int
+	UseUnicode bool
 }
 
-func parseFlags(arguments []string) (options, error) {
+// ParseFlags ...
+func ParseFlags(arguments []string) (Options, error) {
 	flags := flag.NewFlagSet("go-dice-cli", flag.ContinueOnError)
 	flags.SetOutput(ioutil.Discard)
 
@@ -41,9 +44,9 @@ func parseFlags(arguments []string) (options, error) {
 	err := flags.Parse(arguments)
 	if err != nil {
 		if err == flag.ErrHelp {
-			return options{}, err
+			return Options{}, err
 		}
-		return options{}, fmt.Errorf("unable to parse the flags: %s", err)
+		return Options{}, fmt.Errorf("unable to parse the flags: %s", err)
 	}
 
 	// 1. as a string in a positional argument
@@ -51,14 +54,14 @@ func parseFlags(arguments []string) (options, error) {
 	if diceNotation != "" {
 		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return options{},
+			return Options{},
 				fmt.Errorf("unable to parse the positional argument: %s", err)
 		}
 
-		options := options{
-			throwCount: throwCount,
-			faceCount:  faceCount,
-			useUnicode: *unicodeFlag,
+		options := Options{
+			ThrowCount: throwCount,
+			FaceCount:  faceCount,
+			UseUnicode: *unicodeFlag,
 		}
 		return options, nil
 	}
@@ -68,13 +71,13 @@ func parseFlags(arguments []string) (options, error) {
 	if diceNotation != "" {
 		throwCount, faceCount, err := parseDiceNotation(diceNotation)
 		if err != nil {
-			return options{}, fmt.Errorf("unable to parse the 'dice' flag: %s", err)
+			return Options{}, fmt.Errorf("unable to parse the 'dice' flag: %s", err)
 		}
 
-		options := options{
-			throwCount: throwCount,
-			faceCount:  faceCount,
-			useUnicode: *unicodeFlag,
+		options := Options{
+			ThrowCount: throwCount,
+			FaceCount:  faceCount,
+			UseUnicode: *unicodeFlag,
 		}
 		return options, nil
 	}
@@ -82,18 +85,18 @@ func parseFlags(arguments []string) (options, error) {
 	// 3. as numbers in the 'throws' and 'faces' flags
 	throwCount := *throwsFlag
 	if throwCount == 0 {
-		return options{}, errors.New("the 'throws' flag is required")
+		return Options{}, errors.New("the 'throws' flag is required")
 	}
 
 	faceCount := *facesFlag
 	if faceCount == 0 {
-		return options{}, errors.New("the 'faces' flag is required")
+		return Options{}, errors.New("the 'faces' flag is required")
 	}
 
-	options := options{
-		throwCount: throwCount,
-		faceCount:  faceCount,
-		useUnicode: *unicodeFlag,
+	options := Options{
+		ThrowCount: throwCount,
+		FaceCount:  faceCount,
+		UseUnicode: *unicodeFlag,
 	}
 	return options, nil
 }

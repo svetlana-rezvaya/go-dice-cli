@@ -1,12 +1,13 @@
-package main
+package dice
 
 import "fmt"
 
-func marshalStatistics(stats statistics, useUnicode bool) string {
+// MarshalStatistics ...
+func MarshalStatistics(stats Statistics, useUnicode bool) string {
 	return fmt.Sprintf(
 		"minimum: %s\nmaximum: %s\nsum: %s\n",
-		marshalValue(stats.minimum, useUnicode),
-		marshalValue(stats.maximum, useUnicode),
-		marshalValue(stats.sum, useUnicode),
+		marshalValue(stats.Minimum, useUnicode),
+		marshalValue(stats.Maximum, useUnicode),
+		marshalValue(stats.Sum, useUnicode),
 	)
 }

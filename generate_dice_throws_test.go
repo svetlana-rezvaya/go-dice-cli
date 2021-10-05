@@ -1,4 +1,4 @@
-package main
+package dice
 
 import (
 	"math/rand"
@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func Test_generateDiceThrows(test *testing.T) {
+func TestGenerateDiceThrows(test *testing.T) {
 	rand.Seed(1)
 
-	diceThrows := generateDiceThrows(3, 8)
+	diceThrows := GenerateDiceThrows(3, 8)
 
 	wantedDiceThrows := []int{2, 8, 8}
 	if !reflect.DeepEqual(diceThrows, wantedDiceThrows) {

@@ -1,8 +1,9 @@
-package main
+package dice
 
 import "math/rand"
 
-func generateDiceThrows(throwCount int, faceCount int) []int {
+// GenerateDiceThrows ...
+func GenerateDiceThrows(throwCount int, faceCount int) []int {
 	diceThrows := []int{}
 	for i := 0; i < throwCount; i = i + 1 {
 		value := rand.Intn(faceCount) + 1
