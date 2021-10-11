@@ -18,7 +18,7 @@ func TestMarshalValues_withUnicode(test *testing.T) {
 	}
 }
 
-func Test_marshalValue(test *testing.T) {
+func TestMarshalValue(test *testing.T) {
 	type data struct {
 		value        int
 		useUnicode   bool
@@ -30,7 +30,7 @@ func Test_marshalValue(test *testing.T) {
 		data{value: 28, useUnicode: true, wantedResult: "⚄⚄ ⚄⚄ ⚅⚁"},
 	}
 	for _, testData := range tests {
-		result := marshalValue(testData.value, testData.useUnicode)
+		result := MarshalValue(testData.value, testData.useUnicode)
 
 		if result != testData.wantedResult {
 			test.Logf("failed: %d %t", testData.value, testData.useUnicode)

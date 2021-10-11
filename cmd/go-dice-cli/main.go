@@ -9,6 +9,7 @@ import (
 	"time"
 
 	dice "github.com/svetlana-rezvaya/go-dice-cli"
+	"github.com/svetlana-rezvaya/go-dice-cli/statistics"
 )
 
 func main() {
@@ -26,6 +27,6 @@ func main() {
 	diceThrows := dice.GenerateDiceThrows(options.ThrowCount, options.FaceCount)
 	fmt.Println(dice.MarshalValues(diceThrows, options.UseUnicode))
 
-	stats := dice.CollectStatistics(diceThrows)
-	fmt.Print(dice.MarshalStatistics(stats, options.UseUnicode))
+	stats := statistics.CollectStatistics(diceThrows)
+	fmt.Print(statistics.MarshalStatistics(stats, options.UseUnicode))
 }

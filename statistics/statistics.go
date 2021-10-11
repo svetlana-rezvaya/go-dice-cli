@@ -1,4 +1,4 @@
-package dice
+package statistics
 
 // Statistics ...
 type Statistics struct {

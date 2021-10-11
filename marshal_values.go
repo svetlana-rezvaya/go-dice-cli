@@ -13,13 +13,14 @@ func MarshalValues(values []int, useUnicode bool) string {
 		if result != "" {
 			result = result + ", "
 		}
-		result = result + marshalValue(value, useUnicode)
+		result = result + MarshalValue(value, useUnicode)
 	}
 
 	return result
 }
 
-func marshalValue(value int, useUnicode bool) string {
+// MarshalValue ...
+func MarshalValue(value int, useUnicode bool) string {
 	if useUnicode {
 		return toUnicodeDices(value)
 	}
