@@ -1,6 +1,9 @@
 # go-dice-cli
 
+[![GoDoc](https://godoc.org/github.com/svetlana-rezvaya/go-dice-cli?status.svg)](https://godoc.org/github.com/svetlana-rezvaya/go-dice-cli)
 [![Go Report Card](https://goreportcard.com/badge/github.com/svetlana-rezvaya/go-dice-cli)](https://goreportcard.com/report/github.com/svetlana-rezvaya/go-dice-cli)
+[![Build Status](https://app.travis-ci.com/svetlana-rezvaya/go-dice-cli.svg?branch=master)](https://app.travis-ci.com/svetlana-rezvaya/go-dice-cli)
+[![codecov](https://codecov.io/gh/svetlana-rezvaya/go-dice-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/svetlana-rezvaya/go-dice-cli)
 
 The utility for generating dice throws.
 
