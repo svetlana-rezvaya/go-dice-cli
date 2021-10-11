@@ -9,16 +9,17 @@ import (
 	"time"
 
 	dice "github.com/svetlana-rezvaya/go-dice-cli"
+	"github.com/svetlana-rezvaya/go-dice-cli/internal/cli"
 	"github.com/svetlana-rezvaya/go-dice-cli/statistics"
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
-	options, err := dice.ParseFlags(os.Args[1:])
+	options, err := cli.ParseFlags(os.Args[1:])
 	if err != nil {
 		if err == flag.ErrHelp {
-			fmt.Print(dice.HelpMessage)
+			fmt.Print(cli.HelpMessage)
 			os.Exit(0)
 		}
 		log.Fatal(err)

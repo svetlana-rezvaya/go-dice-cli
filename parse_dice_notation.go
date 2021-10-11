@@ -7,8 +7,9 @@ import (
 	"strings"
 )
 
-// example of input data: "2d20", "d20" (it means "1d20")
-func parseDiceNotation(text string) (throwCount int, faceCount int, err error) {
+// ParseDiceNotation ...
+// Example of input data: "2d20", "d20" (it means "1d20").
+func ParseDiceNotation(text string) (throwCount int, faceCount int, err error) {
 	parts := strings.Split(text, "d")
 	if len(parts) != 2 {
 		return 0, 0, errors.New("invalid count of parts")

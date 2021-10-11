@@ -2,8 +2,8 @@ package dice
 
 import "testing"
 
-func Test_parseDiceNotation_successWithFullData(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("2d20")
+func TestParseDiceNotation_successWithFullData(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("2d20")
 
 	if throwCount != 2 {
 		test.Fail()
@@ -16,8 +16,8 @@ func Test_parseDiceNotation_successWithFullData(test *testing.T) {
 	}
 }
 
-func Test_parseDiceNotation_successWithShortData(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("d20")
+func TestParseDiceNotation_successWithShortData(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("d20")
 
 	if throwCount != 1 {
 		test.Fail()
@@ -30,8 +30,8 @@ func Test_parseDiceNotation_successWithShortData(test *testing.T) {
 	}
 }
 
-func Test_parseDiceNotation_errorWithLessParts(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("2")
+func TestParseDiceNotation_errorWithLessParts(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("2")
 
 	if throwCount != 0 {
 		test.Fail()
@@ -44,8 +44,8 @@ func Test_parseDiceNotation_errorWithLessParts(test *testing.T) {
 	}
 }
 
-func Test_parseDiceNotation_errorWithMoreParts(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("2d20d200")
+func TestParseDiceNotation_errorWithMoreParts(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("2d20d200")
 
 	if throwCount != 0 {
 		test.Fail()
@@ -58,8 +58,8 @@ func Test_parseDiceNotation_errorWithMoreParts(test *testing.T) {
 	}
 }
 
-func Test_parseDiceNotation_errorWithIncorrectThrowCount(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("#d20")
+func TestParseDiceNotation_errorWithIncorrectThrowCount(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("#d20")
 
 	if throwCount != 0 {
 		test.Fail()
@@ -76,8 +76,8 @@ func Test_parseDiceNotation_errorWithIncorrectThrowCount(test *testing.T) {
 	}
 }
 
-func Test_parseDiceNotation_errorWithIncorrectFaceCount(test *testing.T) {
-	throwCount, faceCount, err := parseDiceNotation("2d##")
+func TestParseDiceNotation_errorWithIncorrectFaceCount(test *testing.T) {
+	throwCount, faceCount, err := ParseDiceNotation("2d##")
 
 	if throwCount != 0 {
 		test.Fail()

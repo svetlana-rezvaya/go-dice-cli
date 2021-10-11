@@ -1,10 +1,12 @@
-package dice
+package cli
 
 import (
 	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
+
+	dice "github.com/svetlana-rezvaya/go-dice-cli"
 )
 
 // HelpMessage ...
@@ -52,7 +54,7 @@ func ParseFlags(arguments []string) (Options, error) {
 	// 1. as a string in a positional argument
 	diceNotation := flags.Arg(0)
 	if diceNotation != "" {
-		throwCount, faceCount, err := parseDiceNotation(diceNotation)
+		throwCount, faceCount, err := dice.ParseDiceNotation(diceNotation)
 		if err != nil {
 			return Options{},
 				fmt.Errorf("unable to parse the positional argument: %s", err)
@@ -69,7 +71,7 @@ func ParseFlags(arguments []string) (Options, error) {
 	// 2. as a string in the 'dice' flag
 	diceNotation = *diceFlag
 	if diceNotation != "" {
-		throwCount, faceCount, err := parseDiceNotation(diceNotation)
+		throwCount, faceCount, err := dice.ParseDiceNotation(diceNotation)
 		if err != nil {
 			return Options{}, fmt.Errorf("unable to parse the 'dice' flag: %s", err)
 		}
