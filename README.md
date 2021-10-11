@@ -10,7 +10,7 @@ The utility for generating dice throws.
 ## Installation
 
 ```
-$ go get github.com/svetlana-rezvaya/go-dice-cli
+$ go get github.com/svetlana-rezvaya/go-dice-cli/...
 ```
 
 ## Usage
